@@ -5,3 +5,11 @@
 allowBuilds:
   core-js: false
   core-js-pure: false
+
+# Lay node_modules out flat, the way npm did when the museum's served build
+# was made. pnpm's default isolated layout routes every import through
+# node_modules/.pnpm/<pkg>@<version>/..., and webpack derives module ids,
+# chunk ids and content hashes from those paths, so the same sources would
+# come out as differently named, differently hashed bundles. Files are
+# still hard-linked from pnpm's store, so the disk cost doesn't change.
+nodeLinker: hoisted
